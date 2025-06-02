@@ -23,6 +23,7 @@
 
 ```bash
 pip install -r requirements.txt
+```
 
 設定方法
 1.APIキーとチャンネルIDを設定
