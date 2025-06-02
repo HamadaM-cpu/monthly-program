@@ -21,13 +21,6 @@ settings.iniファイルを開いて編集します。
    GCP_APIKEY=YOUR_API_KEY_HERE
    CHANNEL_IDS=YOUR_CHANNEL_ID1,YOUR_CHANNEL_ID2
 
-（例）
-```ini
-GCP_APIKEY = AIzaxxxxxxx...
-CHANNEL_IDS = UCxxxxxx,UCyyyyyy
-書いたら保存してください。
-```
-
 ■ プログラムの使い方
 
 monthly.exe（または Macなら monthly）をダブルクリックすると自動で動きます。
