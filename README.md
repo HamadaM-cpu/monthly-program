@@ -1,0 +1,2 @@
+# monthly-program
+YouTubeチャンネル情報を集めてExcelにまとめるプログラム
