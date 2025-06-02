@@ -1,67 +1,89 @@
-# monthly-program
-YouTubeチャンネル情報を集めてExcelにまとめるプログラム
+# YouTube チャンネル統計 Excel レポート作成ツール
 
-■ 準備するもの
+このプロジェクトは、指定されたYouTubeチャンネルの統計情報を収集し、それを元に月ごとのレポートをExcelファイルに出力するツールです。各チャンネルの登録者数、動画の視聴数、長編動画やショート動画の情報を集計し、視覚的にわかりやすくまとめることができます。
 
-このフォルダに入っている3つのファイル：
+## 機能
 
-monthly.exe（または Macなら monthly）
-settings.ini
-README.txt（このファイル）
-settings.iniファイルを開いて編集します。
+- YouTube Data APIを使用して、指定されたチャンネルから動画の統計情報を取得。
+- 動画の公開日時や再生回数に基づいて、月ごとの統計を集計。
+- 集計した情報をExcelファイルに書き込み、視覚的にわかりやすい形式で出力。
+- 前月比などの追加指標を計算し、Excelに反映。
 
-■ settings.iniの書き方
+## 必要なパッケージ
 
-## 設定ファイルの準備
+以下のパッケージが必要です:
 
-1. `settings.ini.sample`ファイルをコピーして、`settings.ini`という名前で保存します。
-2. `settings.ini`ファイルを開き、以下の情報を適切な値に置き換えてください。
+- `pandas`
+- `openpyxl`
+- `google-api-python-client`
+- `isodate`
+- `configparser`
 
-   ```ini
-   [entity]
-   GCP_APIKEY=YOUR_API_KEY_HERE
-   CHANNEL_IDS=YOUR_CHANNEL_ID1,YOUR_CHANNEL_ID2
-
-■ プログラムの使い方
-
-monthly.exe（または Macなら monthly）をダブルクリックすると自動で動きます。
-
-完了すると、「monthly_channel_statistics.xlsx」という名前のExcelファイルが作られます。
-
-■ 定期実行の設定方法
-
-Windowsの場合（タスクスケジューラ）
-スタートメニューから「タスクスケジューラ」を検索して開きます。
-右側の「基本タスクの作成」をクリックします。
-タスク名を入力（例：「monthly実行」など）し、「次へ」をクリック。
-「毎日」や「毎週」など実行頻度を選択し、「次へ」。
-実行開始日時を設定し、「次へ」。
-「プログラムの開始」を選び、「次へ」。
-「プログラム/スクリプト」欄に、monthly.exeのフルパス（例：C:\Users\username\Documents\monthly.exe）を入力または「参照」で選択。
-「次へ」を押し、内容を確認して「完了」。
-これで指定した時間に自動で実行されます。
-
-Mac/Linuxの場合（cron）
-ターミナルを開きます。
-
-以下のコマンドでcron編集画面を開きます：
+これらは`requirements.txt`に記載されていますので、以下のコマンドでインストールできます。
 
 ```bash
-crontab -e
+pip install -r requirements.txt
+
+設定方法
+1.APIキーとチャンネルIDを設定
+settings.iniという設定ファイルを用意してください。
+このファイルにYouTube APIキーと、統計情報を取得するチャンネルのIDを設定します。
+
+```ini
+[entity]
+GCP_APIKEY=your_google_api_key_here
+CHANNEL_IDS=channel_id_1,channel_id_2,channel_id_3
 ```
 
-以下のような行を追加します（例は毎日午前9時に実行する場合）：
+・GCP_APIKEY: Google Cloud Consoleで取得したYouTube Data APIのAPIキーを入力します。
+
+・CHANNEL_IDS: カンマ区切りで対象のYouTubeチャンネルIDを入力します。複数のチャンネルを指定可能です。
+
+2.APIキーの取得
+YouTube Data APIを利用するためには、Google CloudのプロジェクトでAPIキーを作成する必要があります。以下の手順でAPIキーを取得してください。
+
+・Google Cloud Consoleにログインし、新しいプロジェクトを作成します。
+
+・「APIとサービス」→「ライブラリ」から「YouTube Data API v3」を有効化します。
+
+・「APIとサービス」→「認証情報」からAPIキーを作成します。このキーをsettings.iniファイルに記載します。
+
+使用方法
+1.必要なパッケージをインストールします。
 
 ```bash
-0 9 * * * /path/to/monthly
+pip install -r requirements.txt
 ```
 
-※ /path/to/monthly は実際のプログラムのフルパスに置き換えてください。
+2.settings.iniを設定し、チャンネルIDを入力します。
 
-保存して終了するとcronが設定されます。
+3.以下のコマンドでスクリプトを実行します。
 
-■ 注意点
+```bash
+python youtube_statistics_report.py
+```
 
-定期実行では、settings.iniが正しい場所にあり、プログラムが実行できるパスにあることを必ず確認してください。
+4.プログラムが実行されると、指定されたYouTubeチャンネルから統計情報が取得され、月ごとのレポートがmonthly_channel_statistics.xlsxというExcelファイルに書き込まれます。
 
-Windowsは.exeファイル、Mac/Linuxは実行ファイル（monthly）を指定してください。
+
+出力内容
+生成されるExcelファイルには、以下の項目が含まれます：
+
+・月ごとの統計
+・登録者数
+・獲得登録者数（前月比）
+・長編動画数
+・ショート動画の視聴者数
+・動画の視聴数（総再生回数）
+・前月比
+各項目に対して前月比が自動で計算され、増加分が表示されます。増加分がプラスの場合は青、マイナスの場合は赤で強調されます。
+
+注意点
+・settings.iniファイルに誤ったAPIキーやチャンネルIDを設定した場合、エラーが発生することがあります。
+・YouTubeのAPI制限やネットワーク状況によっては、取得に時間がかかることがあります。
+
+
+
+
+
+
