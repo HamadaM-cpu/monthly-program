@@ -11,15 +11,15 @@ settings.iniファイルを開いて編集します。
 
 ■ settings.iniの書き方
 
-メモ帳やテキストエディットで「settings.ini」を開いてください。
+## 設定ファイルの準備
 
-次のように書いてください：
+1. `settings.ini.sample`ファイルをコピーして、`settings.ini`という名前で保存します。
+2. `settings.ini`ファイルを開き、以下の情報を適切な値に置き換えてください。
 
-```ini
-[entity]
-GCP_APIKEY = あなたのYouTube APIキーをここに書きます
-CHANNEL_IDS = チャンネルID1,チャンネルID2,チャンネルID3
-```
+   ```ini
+   [entity]
+   GCP_APIKEY=YOUR_API_KEY_HERE
+   CHANNEL_IDS=YOUR_CHANNEL_ID1,YOUR_CHANNEL_ID2
 
 （例）
 ```ini
