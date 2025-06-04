@@ -10,6 +10,19 @@
 - 集計した情報をExcelファイルに書き込み、視覚的にわかりやすい形式で出力。
 - 前月比などの追加指標を計算し、Excelに反映。
 
+## 実行方法
+
+### 方法1: `.exe` 実行ファイルから実行する場合
+1. `youtube_statistics_report.exe` をダブルクリックして実行します。
+2. 実行と同時に、カレントディレクトリに `monthly_channel_statistics.xlsx` が作成されます。
+3. **実行前に、同じフォルダにある `settings.ini` をテキストエディタで開いて編集**してください。
+
+> 🔧 `settings.ini` はユーザー自身が編集可能な設定ファイルです。実行前に、必ずAPIキーとチャンネルIDを記入してください。
+
+---
+
+### 方法2: Pythonスクリプトとして実行する場合
+
 ### 依存ライブラリ
 以下のPythonパッケージをインストールしてください。
 
@@ -32,22 +45,13 @@ CHANNEL_IDS=channel_id_1,channel_id_2,channel_id_3
 2.「APIとサービス」→「ライブラリ」から「YouTube Data API v3」を有効化します。
 3.「APIとサービス」→「認証情報」からAPIキーを作成し、settings.iniに記載します。
 
-### 使用方法
+### 実行
 1.依存パッケージをまとめてインストール
-
-```bash
-pip install -r requirements.txt
-```
-
-2.settings.iniを編集し、APIキーとチャンネルIDを設定します。
-
-3.スクリプトを実行します。
 
 ```bash
 python monthly.py
 ```
-
-4.実行後、monthly_channel_statistics.xlsx というExcelファイルが作成され、月ごとのレポートが出力されます。
+2.実行後、monthly_channel_statistics.xlsx というExcelファイルが作成され、月ごとのレポートが出力されます。
 
 ### 出力内容
 生成されるExcelファイルには、以下の項目が含まれます：
