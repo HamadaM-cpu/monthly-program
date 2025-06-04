@@ -40,6 +40,7 @@ pip install -r requirements.txt
 ```
 
 2.settings.iniを編集し、APIキーとチャンネルIDを設定します。
+
 3.スクリプトを実行します。
 
 ```bash
